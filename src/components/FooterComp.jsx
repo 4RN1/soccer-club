@@ -18,8 +18,8 @@ useEffect(() => {
         <div className="footer-section" data-aos="fade-up" data-aos-delay="200">
   <h3 >კონტაქტი</h3>
   <div className="contact-links">
-    <p className="contact-item">📞 <a href="tel:+995123456789">+995 123 456 789</a></p>
-    <p className="contact-item">✉️ <a href="mailto:test123@gmail.com">test123@gmail.com</a></p>
+    <p className="contact-item">📞 <a href="tel:+99511144046">+995 511 14 40 46</a></p>
+    <p className="contact-item">✉️ <a href="mailto:begeladze.anri@gmail.com">begeladze.anri@gmail.com</a></p>
     <p className="contact-item">📘 <a href="http://facebook.com" target="_blank" rel="noreferrer">Facebook Group</a></p>
     <p className="contact-item">📸 <a href="http://instagram.com" target="_blank" rel="noreferrer">Instagram</a></p>
   </div>

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import client from '../sanity.Client'
 import { urlFor } from '../sanityImage'
 import '../css/news.css'
 import Navbar from '../components/Navbar'
 import FooterComp from '../components/FooterComp'
+import { PortableText } from "@portabletext/react"
 import AOS from "aos";
 
 function News() {
@@ -63,7 +64,12 @@ function News() {
             )}
             
             <h2>{article.title}</h2>
-            <p>{isExpanded ? article.body?.[0]?.children?.[0]?.text : previewText}</p>
+            {isExpanded ? (
+  <PortableText value={article.body} />
+) : (
+  <p>{previewText}</p>
+)}
+
             <p className="news-date">{new Date(article.publishedAt).toLocaleDateString()}</p>
           </div>
         )
