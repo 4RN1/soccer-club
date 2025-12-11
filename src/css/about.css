@@ -36,8 +36,7 @@ body {
 }
 
 .about-wrapper {
-  border-left: 3px solid black;
-  border-right: 3px solid black;
+
 
   max-width: 150rem;
   display: flex;
@@ -48,7 +47,7 @@ body {
 }
 
 .about-text {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin: 2rem auto;  
   color: rgb(0, 0, 0);
   border: 2px solid;
@@ -93,8 +92,13 @@ body {
     font-size: 3rem;
   }
 
+.about-wrapper {
+  padding:2rem;
+}
+
   .about-text {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    font-weight: 500;
   }
 .about-heading {
   display: flex;

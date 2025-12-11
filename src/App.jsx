@@ -5,8 +5,11 @@ import NewsPage from './pages/News';
 import Schedule from './pages/Schedule';
 import Registration from './pages/registration';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import './css/App.css'
-import Navbar from './components/Navbar';
+
+import Privacy from "./pages/Privacy";
+import Note from "./pages/Note";
+
+
 
 function App() {
 
@@ -23,6 +26,8 @@ function App() {
     <Route path="/schedule" element={<Schedule/>} />
     <Route path="/registration" element={<Registration/>} />
     
+  <Route path="/privacy" element={<Privacy />} />
+<Route path="/note" element={<Note />} />
 
     
     </Routes>

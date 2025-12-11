@@ -3,9 +3,14 @@ html {
 }
 
 .container {
+  width: 100%;
   display: flex;
   justify-content: center;
   background-color: rgb(88, 88, 88);
+ 
+  z-index: 100;
+  
+  
 }
 
 .navbar {
@@ -74,15 +79,73 @@ html {
 .toggle-menu {
   width: 4rem;
   height: 4rem;
-  font-size: 2rem;
-  background-color: rgb(255, 140, 8);
+  font-size: 3rem;
+  background-color: rgba(255, 230, 3, 0);
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.7rem;
   font-weight: 900;
   display: none;
   margin-right: 0.5rem;
+  color: #ffffff;
   
 }
+
+/* Dropdown Container */
+.dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown {
+font-weight: 800;
+}
+
+/* Hide menu by default */
+.dropdown-menu {
+  font-family: "Noto Sans Georgian", sans-serif;
+
+  position: absolute;
+  top: 3.5rem;
+  left: 0;
+  background: white;
+  color: black;
+  list-style: none;
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+  display: none;
+  min-width: 18rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 999;
+}
+
+/* Show when active */
+.dropdown-menu.open {
+  display: block;
+}
+
+/* Dropdown links */
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.6rem;
+}
+
+.dropdown-menu li:hover {
+  background: #f2f2f2;
+  border-radius: 0.3rem;
+}
+
+/* Mobile support */
+.nav-links.active .dropdown-menu {
+  position: relative;
+  top: 0;
+  box-shadow: none;
+}
+
 
 /* ------------------ RESPONSIVE ------------------ */
 
@@ -116,6 +179,8 @@ html {
    
   }
 
+
+
   .navbar {
      flex-direction: column;
   }
@@ -127,6 +192,11 @@ flex-direction: row;
 justify-content: space-around;
 width: 100%;
 max-width: 150rem;
+}
+
+.dropdown ,
+  .dropdown-menu{
+  display: none !important;
 }
 
   .nav-links {
@@ -151,6 +221,8 @@ max-width: 150rem;
   .toggle-menu {
     display: block;
   }
+
+  
 }
 
 /* Extra small screens */
@@ -159,6 +231,10 @@ max-width: 150rem;
     font-size: 2rem;
   }
 
+
+  .dropdown {
+  display: none;
+}
   .nav-links {
     gap: 1rem;
   }

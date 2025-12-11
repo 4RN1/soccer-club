@@ -1,0 +1,89 @@
+.rules-container {
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 2rem;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+}
+
+.rules-container h1 {
+  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 3rem;
+}
+
+.rules-container h2 {
+  margin-top: 2.5rem;
+  font-size: 2.6rem;
+  color: #333;
+}
+
+.rules-container p {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  color: #444;
+}
+
+
+/* ============ TABLET (max-width: 900px) ============ */
+@media (max-width: 900px) {
+  .rules-container {
+    max-width: 90%;
+    padding: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .rules-container h1 {
+    font-size: 3.2rem;
+  }
+
+  .rules-container h2 {
+    font-size: 2.2rem;
+  }
+
+  .rules-container p {
+    font-size: 1.7rem;
+    line-height: 2.6rem;
+  }
+}
+
+
+/* ============ MOBILE (max-width: 600px) ============ */
+@media (max-width: 600px) {
+  .rules-container {
+    max-width: 95%;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+
+  .rules-container h1 {
+    font-size: 2.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .rules-container h2 {
+    font-size: 1.9rem;
+    margin-top: 2rem;
+  }
+
+  .rules-container p {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+}
+
+
+/* ============ VERY SMALL PHONES (max-width: 380px) ============ */
+@media (max-width: 380px) {
+  .rules-container h1 {
+    font-size: 2.3rem;
+  }
+
+  .rules-container h2 {
+    font-size: 1.7rem;
+  }
+
+  .rules-container p {
+    font-size: 1.5rem;
+  }
+}

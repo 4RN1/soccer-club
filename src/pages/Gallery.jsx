@@ -1,112 +1,130 @@
-import '../css/Gallery.css'
-import Navbar from '../components/Navbar'
-import FooterComp from '../components/FooterComp'
-import { useEffect, useState } from 'react'
-import client from '../sanity.Client'
+import '../css/Gallery.css';
+import Navbar from '../components/Navbar';
+import FooterComp from '../components/FooterComp';
+import { useEffect, useState } from 'react';
+import client from '../sanity.Client';
 import AOS from "aos";
+
+// Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 function Gallery() {
-  const [images, setImages] = useState([])
-  const [videos, setVideos] = useState([])
+  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
 
+  // AOS Init
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
 
-   useEffect(() => {
-      AOS.init({ duration: 1000, once: true }); // once = animate only on first scroll
-    }, []);
-
-
-  // Fetch photos
+  // Fetch Photos
   useEffect(() => {
     client.fetch(`*[_type=="photo"]{
       _id,
       title,
       caption,
-      image{asset->{_id,url}}
+      image{asset->{_id, url}}
     }`)
-      .then(data => {
-        setImages(data)
-      
-      })
-      .catch(err => {
-        console.error(err)
-       
-      })
-  }, [])
+      .then(data => setImages(data))
+      .catch(err => console.error(err));
+  }, []);
 
-  // Fetch videos
-useEffect(() => {
-  client.fetch(`*[_type == "videogallery"]{
-    _id,
-    title,
-    video[]{
-      file{asset->{url}},
-      embedUrl,
-      description
-    }
-  }`)
-  .then(data => setVideos(data))
-  .catch(err => console.error(err))
-}, [])
-
-
-
+  // Fetch Videos
+  useEffect(() => {
+    client.fetch(`*[_type == "videogallery"]{
+      _id,
+      title,
+      video[]{
+        file{asset->{url}},
+        embedUrl,
+        description
+      }
+    }`)
+      .then(data => setVideos(data))
+      .catch(err => console.error(err));
+  }, []);
 
   return (
     <div className="gallery">
       <Navbar />
-    <div className='images'>
-      <h1 data-aos="fade-up" data-aos-delay="200">გალერეა</h1>
-</div>
-      {/* Photos */}
-      <h2 className='photos-heading' data-aos="fade-up" data-aos-delay="200">ფოტოები</h2>
-      <div className='photos-grid'>
+
+      {/* Hero Section */}
+      <div className='images'>
+        <h1 data-aos="fade-up" data-aos-delay="200">გალერეა</h1>
+      </div>
+
+      {/* ---------------------- PHOTO SLIDER ---------------------- */}
+      <h2 className='photos-heading' data-aos="fade-up">ფოტოები</h2>
+
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={20}
+        slidesPerView={1}
+        className="photo-slider"
+      >
         {images.length > 0 ? images.map(photo => (
-          <div key={photo._id} className='photo-item' data-aos="fade-up" data-aos-delay="200">
-            <img
-              src={photo.image?.asset?.url || '/placeholder.jpg'}
-              alt={photo.caption || photo.title || 'Gallery image'}
-             className='gallery-img' data-aos="fade-up" data-aos-delay="200"/>
-            {photo.caption && <p>{photo.caption}</p>}
-          </div>
-        )) : <p>სურათების არე ცარიელია</p>}
-      </div>
+          <SwiperSlide key={photo._id}>
+            <div className="slider-photo" data-aos="fade-up">
+              <img
+                src={photo.image?.asset?.url || '/placeholder.jpg'}
+                alt={photo.caption || photo.title}
+              />
+              {photo.caption && <p>{photo.caption}</p>}
+            </div>
+          </SwiperSlide>
+        )) : <p style={{ textAlign: "center" }}>სურათები ვერ მოიძებნა</p>}
+      </Swiper>
 
-      {/* Videos */}
-      <h2 className='videos-heading' data-aos="fade-up" data-aos-delay="200">ვარჯიშის ვიდეოები</h2>
-      <div className='videos-grid' data-aos="fade-up" data-aos-delay="200">
-        {videos.map(item => (
-  <div key={item._id}>
-    {item.video?.length > 0 ? item.video.map((v, idx) => (
-      <div key={idx} className="video-item">
 
-        {/* Show uploaded video */}
-        {v.file?.asset?.url && (
-          <video controls>
-            <source src={v.file.asset.url} type="video/mp4" />
-          </video>
+      {/* ---------------------- VIDEO SLIDER ---------------------- */}
+      <h2 className='videos-heading' data-aos="fade-up">ვარჯიშის ვიდეოები</h2>
+
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={20}
+        slidesPerView={1}
+        className="video-slider"
+      >
+        {videos.map(item =>
+          item.video?.map((v, idx) => (
+            <SwiperSlide key={idx}>
+              <div className="slider-video" data-aos="fade-up">
+
+                {/* Local uploaded video */}
+                {v.file?.asset?.url && (
+                  <video controls>
+                    <source src={v.file.asset.url} type="video/mp4" />
+                  </video>
+                )}
+
+                {/* YouTube/Vimeo embed */}
+                {v.embedUrl && (
+                  <iframe
+                    src={v.embedUrl.replace("watch?v=", "embed/")}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                )}
+
+                {v.description && <p>{v.description}</p>}
+              </div>
+            </SwiperSlide>
+          ))
         )}
-
-        {/* Show embed link (YouTube/Vimeo) */}
-        {v.embedUrl && (
-          <iframe
-            src={v.embedUrl.replace("watch?v=", "embed/")}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen data-aos="fade-up" data-aos-delay="200"
-          ></iframe>
-        )}
-
-        {v.description && <p>{v.description}</p>}
-      </div>
-    )) : <p>ვიდეობის არე ცარიელია</p>}
-  </div>
-))}
-
-
-      </div>
+      </Swiper>
 
       <FooterComp />
     </div>
-  )
+  );
 }
 
-export default Gallery
+export default Gallery;

@@ -34,7 +34,7 @@ export default defineType({
       title: 'Main Image',
       type: 'image',
       options: {
-        hotspot: true, // lets you crop and focus
+        hotspot: true,
       },
     }),
   ],

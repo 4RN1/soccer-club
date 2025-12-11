@@ -16,8 +16,9 @@ function News() {
       AOS.init({ duration: 1000, once: true }); // once = animate only on first scroll
     }, []);
 
-  useEffect(() => {
-    client.fetch(`*[_type == "news"]{
+ useEffect(() => {
+  client
+    .fetch(`*[_type == "news"] | order(publishedAt desc){
       _id,
       title,
       slug,
@@ -26,8 +27,9 @@ function News() {
       mainImage
     }`)
     .then(setArticles)
-    .catch(err => console.error(err))
-  }, [])
+    .catch(err => console.error(err));
+}, []);
+
 
   return (
     
@@ -47,7 +49,7 @@ function News() {
       {articles.map((article) => {
        
         const isExpanded = expanded === article._id
-        const previewText = article.body?.[0]?.children?.[0]?.text.slice(0, 100) + '...'
+        const previewText = article.body?.[0]?.children?.[0]?.text.slice(0, 0) + 'სრულად ნახვა'
 
         return (
           <div
@@ -80,6 +82,7 @@ function News() {
     </div>
       <FooterComp/>
     </div>
+
   )
 }
 
