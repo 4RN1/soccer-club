@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import FooterComp from "../components/FooterComp";
-import "../css/RulesPages.css"; // shared styling
+import "../css/rulesPages.css"; // shared styling
 
 function Privacy() {
   return (
