@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import FooterComp from "../components/FooterComp";
 import "../css/rulesPages.css";
-
+// dd
 function Note() {
   return (
     <>
